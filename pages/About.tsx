@@ -1,155 +1,250 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Philosophy from '../components/Philosophy';
-import { TimelineEvent } from '../types';
 
-const timeline: TimelineEvent[] = [
-  { year: "2018", title: "The Foundation", description: "Exploring the intersection of minimalism and Vietnamese heritage." },
-  { year: "2020", title: "Global Perspective", description: "Collaborations with architects in Tokyo and Copenhagen shape the studio's ethos." },
-  { year: "2023", title: "MYCA Established", description: "Formally launching as a dedicated studio for luxury residential & hospitality." },
-  { year: "2024", title: "Digital Expansion", description: "Launching a fully remote design consultancy for international clientele." },
+const servicesList = [
+    {
+        title: "Space Planning & Spatial Strategy",
+        description: "We design clear layouts and circulation strategies that balance functionality with calm aesthetics, ensuring every square meter serves a purpose."
+    },
+    {
+        title: "Interior Design & Concept Development",
+        description: "From materials and lighting to color and texture, we develop cohesive interior concepts that feel composed, timeless, and emotionally grounded."
+    },
+    {
+        title: "Custom Furniture & Built-In Design",
+        description: "We design bespoke furniture and built-ins that integrate seamlessly with the architecture, creating spaces that feel intentional and refined."
+    },
+    {
+        title: "3D Visualization & Design Coordination",
+        description: "Photorealistic visualizations and design coordination that bring clarity, confidence, and alignment before execution begins."
+    }
 ];
 
 const About: React.FC = () => {
-  const navigate = useNavigate();
-  const { scrollYProgress } = useScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+    const navigate = useNavigate();
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-      className="bg-myca-bg"
-    >
-      {/* 1. Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden px-6">
-        <div className="absolute inset-0 z-0">
-             <div className="absolute inset-0 bg-myca-bg/20 z-10" />
-             <motion.img 
-                style={{ scale }}
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2400&auto=format&fit=crop"
-                alt="Studio Atmosphere"
-                className="w-full h-full object-cover opacity-30 grayscale"
-             />
-        </div>
-        
-        <div className="relative z-20 max-w-4xl text-center">
-            <motion.h1 
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="text-5xl md:text-8xl font-editorial mb-8 text-myca-text"
-            >
-                About MYCA
-            </motion.h1>
-            <motion.p 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="text-xl md:text-2xl font-light leading-relaxed text-myca-text/70"
-            >
-                A contemporary interior design studio crafting emotionally resonant spaces through precision, storytelling, and global collaboration.
-            </motion.p>
-        </div>
-      </section>
+    // Animation variants for the architectural feel
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 1,
+                staggerChildren: 0.15,
+                delayChildren: 0.2
+            }
+        }
+    };
 
-      {/* 2. Founder Section */}
-      <section className="py-32 px-6 md:px-24 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row gap-16 md:gap-24 items-center">
-            <motion.div 
-                className="w-full md:w-1/2 relative aspect-[3/4]"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-            >
-                <div className="absolute inset-0 border border-myca-accent/30 translate-x-4 translate-y-4" />
-                <img 
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop" 
-                    alt="Jennie - Founder" 
-                    className="w-full h-full object-cover filter brightness-110 contrast-90"
-                />
-            </motion.div>
+    const textVariants: Variants = {
+        hidden: { opacity: 0, x: -20 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
+        }
+    };
 
-            <motion.div 
-                className="w-full md:w-1/2"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-            >
-                <h4 className="text-xs uppercase tracking-[0.2em] text-myca-accent mb-4">Founder & Lead Designer</h4>
-                <h2 className="text-4xl md:text-6xl font-editorial mb-8">Jennie</h2>
-                <div className="space-y-6 text-myca-text/70 font-light leading-relaxed text-lg">
-                    <p>
-                        Jennie is the creative force behind MYCA STUDIO — a designer driven by emotion, precision, and a deep understanding of space. 
-                    </p>
-                    <p>
-                        Her work reflects a belief that interiors are not merely functional environments, but living narratives shaped by light, proportion, and human experience. 
-                        With a background that bridges technical architecture and artistic curation, she brings a calm, rigorous eye to every project.
-                    </p>
-                    <p>
-                        "I believe design is an act of empathy. We don't just build rooms; we build the backdrop for life's most intimate moments."
-                    </p>
+    const imageVariants: Variants = {
+        hidden: { opacity: 0, scale: 0.98 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 1.2, ease: "easeOut" }
+        }
+    };
+
+    const rightColVariants: Variants = {
+        hidden: { opacity: 0, x: 20 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
+        }
+    };
+
+    return (
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="bg-myca-bg min-h-screen pt-32 pb-0"
+        >
+            {/* 1. HERO SECTION (80vw Width, 80vh Height) */}
+            <div className="w-[90vw] md:w-[80vw] mx-auto min-h-[80vh] flex flex-col mb-24 md:mb-32">
+
+                {/* ROW 1: "ABOUT" (30% approx visual weight) */}
+                <div className="w-full md:h-[25%] flex items-end mb-4 md:mb-8">
+                    <motion.h1
+                        variants={textVariants}
+                        className="text-[15vw] md:text-[9rem] lg:text-[11rem] leading-[0.8] font-bold font-editorial text-myca-text tracking-tighter"
+                    >
+                        ABOUT
+                    </motion.h1>
                 </div>
-                <div className="mt-12">
-                   <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" className="h-12 opacity-50" />
-                </div>
-            </motion.div>
-        </div>
-      </section>
 
-      {/* 3. Timeline Section */}
-      <section className="py-32 bg-myca-sep/30 px-6 md:px-24">
-         <div className="max-w-4xl mx-auto">
-             <h2 className="text-center text-4xl font-editorial mb-20">The Journey</h2>
-             
-             <div className="relative border-l border-myca-ui/50 ml-6 md:ml-0 space-y-16">
-                 {timeline.map((event, index) => (
-                     <motion.div 
-                        key={index} 
-                        className="relative pl-12 md:pl-24"
+                {/* ROW 2: GRID COLUMNS (70% height) */}
+                <div className="flex flex-col md:flex-row w-full md:h-[75%] gap-8 md:gap-12">
+
+                    {/* COL 1: "US" + Text (20% Width) */}
+                    <div className="w-full md:w-[20%] flex flex-col">
+                        <motion.h1
+                            variants={textVariants}
+                            className="text-[15vw] md:text-[9rem] lg:text-[11rem] leading-[0.8] font-bold font-editorial text-myca-text tracking-tighter mb-8 md:mb-12"
+                        >
+                            US
+                        </motion.h1>
+
+                        <div className="flex flex-col gap-6 mt-auto pb-4">
+                            <motion.h3
+                                variants={textVariants}
+                                className="text-sm font-medium text-myca-text/80 font-sans leading-tight max-w-[200px]"
+                            >
+                                Luxurious Interior and Industrial Design
+                            </motion.h3>
+
+                            <motion.p
+                                variants={textVariants}
+                                className="text-sm font-light text-myca-text/60 leading-relaxed max-w-[200px]"
+                            >
+                                Modern Elegance: Designs featuring clean lines, neutral palettes, and high-quality materials.
+                            </motion.p>
+                        </div>
+                    </div>
+
+                    {/* COL 2: MAIN IMAGE (50% Width - Visual Anchor) */}
+                    <motion.div
+                        variants={imageVariants}
+                        className="w-full md:w-[50%] h-[50vh] md:h-auto min-h-[400px] relative rounded-[2rem] overflow-hidden"
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop"
+                            alt="MYCA Signature Interior"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+
+                    {/* COL 3: PHILOSOPHY PREVIEW (30% Width) */}
+                    <div className="w-full md:w-[30%] flex flex-col h-full">
+                        <motion.div
+                            variants={rightColVariants}
+                            className="w-full h-[250px] md:h-[40%] rounded-[2rem] overflow-hidden mb-8 md:mb-auto"
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?q=80&w=800&auto=format&fit=crop"
+                                alt="Detail"
+                                className="w-full h-full object-cover"
+                            />
+                        </motion.div>
+
+                        <motion.div variants={rightColVariants} className="mt-auto pb-4 pl-2">
+                            <h2 className="text-3xl md:text-4xl font-editorial font-bold mb-4">Our Philosophy</h2>
+                            <p className="text-sm font-light text-myca-text/70 leading-relaxed">
+                                At MYCA STUDIO, we believe in creating luxurious, personalized environments that reflect our clients' tastes and lifestyles.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* 2. BLANK TRANSITION SECTION (80vw width, 70vh height) */}
+            <section className="w-[90vw] md:w-[80vw] h-[50vh] md:h-[70vh] bg-[#F2F2F2] mx-auto rounded-[2rem] mb-32" />
+
+            {/* 3. SERVICES SECTION (REFINED) */}
+            <section className="w-[90vw] md:w-[80vw] mx-auto min-h-[60vh] md:h-[70vh] flex flex-col md:flex-row mb-32 md:items-center">
+
+                {/* Left Column (45%) */}
+                <div className="w-full md:w-[45%] h-full flex flex-col justify-center pr-0 md:pr-12 md:py-0">
+                    {/* Text Block */}
+                    <div className="mb-8 md:mb-8">
+                        <motion.h2
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1 }}
+                            className="text-7xl md:text-8xl font-editorial font-bold text-myca-text mb-6 md:mb-8"
+                        >
+                            Our Services
+                        </motion.h2>
+
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="text-xl md:text-2xl text-myca-text/70 font-sans font-normal leading-relaxed max-w-xl"
+                        >
+                            We support interior projects from early spatial thinking to final visualization.<br />
+                            Our services focus on clarity, balance, and thoughtful execution — ensuring every space feels intentional, calm, and enduring.
+                        </motion.p>
+                    </div>
+
+                    {/* Square Image - Increased Size (~55%) */}
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6, delay: index * 0.2 }}
-                     >
-                         <div className="absolute left-[-5px] top-2 w-2.5 h-2.5 bg-myca-accent rounded-full outline outline-4 outline-myca-bg" />
-                         <span className="text-xs font-bold tracking-widest text-myca-accent mb-2 block">{event.year}</span>
-                         <h3 className="text-2xl font-editorial mb-2">{event.title}</h3>
-                         <p className="text-myca-text/60 font-light">{event.description}</p>
-                     </motion.div>
-                 ))}
-             </div>
-         </div>
-      </section>
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                        className="relative w-full md:w-[55%] aspect-square rounded-[1.5rem] overflow-hidden md:mt-6"
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop"
+                            alt="Services Aesthetic"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+                </div>
 
-      {/* 4. Philosophy Reuse */}
-      <Philosophy />
+                {/* Right Column (55%) */}
+                <div className="w-full md:w-[55%] h-full flex flex-col justify-center mt-12 md:mt-0 pl-0 md:pl-16 gap-6 md:gap-6">
+                    {servicesList.map((service, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 + (index * 0.15), ease: "easeOut" }}
+                            className="flex flex-col justify-center pl-5"
+                        >
+                            <h3 className="text-3xl md:text-4xl font-editorial font-bold text-myca-text mb-2">
+                                {service.title}
+                            </h3>
+                            <p className="text-xl md:text-2xl text-myca-text/70 font-sans font-light leading-relaxed max-w-xl">
+                                {service.description}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
 
-      {/* 5. CTA */}
-      <section className="py-32 px-6 flex flex-col items-center justify-center text-center bg-myca-bg">
-          <motion.h2 
-            className="text-4xl md:text-6xl font-editorial mb-8 max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-              Explore how philosophy <br/> transforms into space.
-          </motion.h2>
-          <button 
-            onClick={() => navigate('/portfolio')}
-            className="group relative px-12 py-4 border border-myca-text text-myca-text overflow-hidden hover:text-white transition-colors duration-500"
-          >
-              <div className="absolute inset-0 bg-myca-text translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
-              <span className="relative z-10 uppercase tracking-widest text-sm">View Portfolio</span>
-          </button>
-      </section>
-    </motion.div>
-  );
+            </section>
+
+            {/* 4. PHILOSOPHY (EXISTING - REUSED COMPONENT) */}
+            <Philosophy />
+
+            {/* 5. CTA (EXISTING) */}
+            <section className="py-32 px-6 flex flex-col items-center justify-center text-center bg-myca-bg border-t border-myca-ui/30">
+                <motion.h2
+                    className="text-4xl md:text-6xl font-editorial mb-8 max-w-2xl"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                >
+                    Explore how philosophy <br /> transforms into space.
+                </motion.h2>
+                <button
+                    onClick={() => navigate('/portfolio')}
+                    className="group relative px-12 py-4 border border-myca-text text-myca-text overflow-hidden hover:text-white transition-colors duration-500"
+                >
+                    <div className="absolute inset-0 bg-myca-text translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                    <span className="relative z-10 uppercase tracking-widest text-sm">View Portfolio</span>
+                </button>
+            </section>
+
+        </motion.div>
+    );
 };
 
 export default About;

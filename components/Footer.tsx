@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Footer: React.FC = () => {
+  const whatsappUrl = "https://wa.me/84938639805?text=" + encodeURIComponent("Hello MYCA Studio, I’m interested in discussing an interior design project. I would love to understand your process and explore how we can work together.");
+
   return (
     <footer className="bg-myca-bg border-t border-myca-ui py-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
@@ -22,13 +24,13 @@ const Footer: React.FC = () => {
             <NavLink to="/" className="hover:text-myca-accent transition-colors duration-300">Home</NavLink>
             <NavLink to="/about" className="hover:text-myca-accent transition-colors duration-300 text-myca-text/50">About</NavLink>
             <NavLink to="/portfolio" className="hover:text-myca-accent transition-colors duration-300 text-myca-text/50">Portfolio</NavLink>
-            <NavLink to="/contact" className="hover:text-myca-accent transition-colors duration-300">Contact</NavLink>
+            <NavLink to="/blog" className="hover:text-myca-accent transition-colors duration-300">Blogs</NavLink>
           </div>
 
           <div className="flex flex-col gap-4">
             <h4 className="uppercase text-xs tracking-widest text-myca-text/40 mb-2">Connect</h4>
             <a href="mailto:myca.desstudio@gmail.com" className="hover:text-myca-accent transition-colors duration-300">myca.desstudio@gmail.com</a>
-            <a href="tel:+84938639805" className="hover:text-myca-accent transition-colors duration-300">+84 938 639 805</a>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-myca-accent transition-colors duration-300">+84 938 639 805</a>
             <span className="text-myca-text/50">Instagram</span>
             <span className="text-myca-text/50">LinkedIn</span>
           </div>

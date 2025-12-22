@@ -3,15 +3,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../types';
 import { useNavigate } from 'react-router-dom';
 
-const allProjects: Project[] = [
+export const allProjects: Project[] = [
   {
     id: 1,
     title: "The Silent Villa",
     category: "Private Residence",
     location: "Da Nang, Vietnam",
     year: "2023",
+    slug: "the-silent-villa",
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
-    description: "A sanctuary of stone and light, designed to frame the ocean views while maintaining absolute privacy. The palette is reductive, allowing nature to take center stage."
+    gallery: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1600&auto=format&fit=crop"
+    ],
+    client: "Private Client",
+    services: ["Architecture", "Interior Design", "Landscape Strategy"],
+    description: "A sanctuary of stone and light, designed to frame the ocean views while maintaining absolute privacy. The palette is reductive, allowing nature to take center stage.",
+    descriptionPart2: "We approached this project with a philosophy of reduction. By stripping away the non-essential, we allowed the fundamental elements of light, space, and material to shape the experience. The result is not just a building, but a vessel for living.",
+    challenge: "The client requested a home that felt like a monastery for modern life—completely secluded from the bustling tourist street nearby, yet open to the expansive ocean horizon.",
+    solution: "We utilized a fortress-like stone façade for the street-facing elevation, creating a complete sound and visual barrier. Inside, the architecture unfolds into a series of open pavilions that dissolve into the landscape."
   },
   {
     id: 2,
@@ -19,8 +31,19 @@ const allProjects: Project[] = [
     category: "Hospitality",
     location: "Nha Trang, Vietnam",
     year: "2022",
+    slug: "azure-coast-hotel",
     image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop",
-    description: "A boutique hotel experience where the boundaries between indoor and outdoor dissolve. Featuring local limestone and reclaimed teak wood."
+    gallery: [
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1600&auto=format&fit=crop"
+    ],
+    client: "Azure Hospitality Group",
+    services: ["Interior Design", "Branding", "Art Curation"],
+    description: "A boutique hotel experience where the boundaries between indoor and outdoor dissolve. Featuring local limestone and reclaimed teak wood.",
+    descriptionPart2: "The design language speaks of the coast without resorting to clichés. We engaged with the salt air, the harsh sun, and the cool breeze to create an environment that feels intrinsically connected to its location.",
+    challenge: "Redefining luxury hospitality in a saturated market. The goal was to move away from gold-plated opulence towards a grounded, textural luxury.",
+    solution: "We prioritized local craftsmanship, sourcing 80% of materials within a 100km radius. The result is a space that feels deeply rooted in its context."
   },
   {
     id: 3,
@@ -28,8 +51,19 @@ const allProjects: Project[] = [
     category: "Restaurant",
     location: "Kyoto, Japan",
     year: "2023",
+    slug: "kyoto-tea-house",
     image: "https://images.unsplash.com/photo-1590333299762-59838045354e?q=80&w=1600&auto=format&fit=crop",
-    description: "A modern interpretation of the traditional Chashitsu. Dark woods, washi paper, and controlled lighting create an intimate atmosphere for conversation."
+    gallery: [
+        "https://images.unsplash.com/photo-1590333299762-59838045354e?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop"
+    ],
+    client: "Uji Tea Co.",
+    services: ["Interior Design", "Lighting Design"],
+    description: "A modern interpretation of the traditional Chashitsu. Dark woods, washi paper, and controlled lighting create an intimate atmosphere for conversation.",
+    descriptionPart2: "The interplay of shadow and light is central to the experience. We created a space where time seems to slow down, allowing the ritual of tea to take precedence over the rush of the city outside.",
+    challenge: "Balancing strict heritage preservation rules with a desire for contemporary functionality and flow.",
+    solution: "Using traditional joinery techniques (Kigumi) to create modern, modular seating arrangements that respect the building's structural integrity."
   },
   {
     id: 4,
@@ -37,8 +71,19 @@ const allProjects: Project[] = [
     category: "Apartment",
     location: "Ho Chi Minh City",
     year: "2024",
+    slug: "urban-sanctuary",
     image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1600&auto=format&fit=crop",
-    description: "A high-rise refuge from the chaotic city below. Sound-absorbing materials and a monochromatic beige palette induce an immediate sense of calm."
+    gallery: [
+        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=1600&auto=format&fit=crop"
+    ],
+    client: "Private Client",
+    services: ["Interior Design", "Custom Furniture"],
+    description: "A high-rise refuge from the chaotic city below. Sound-absorbing materials and a monochromatic beige palette induce an immediate sense of calm.",
+    descriptionPart2: "We wanted to create a tactile silence. Every surface, from the boucle sofa to the limestone floors, was chosen to dampen sound and soften the visual noise of urban living.",
+    challenge: "The original layout was fragmented and dark. The client wanted an open, fluid space that could host gatherings but also offer privacy.",
+    solution: "We removed non-structural walls and used floor-to-ceiling linen curtains to create flexible zones. The light palette maximizes the natural light."
   },
     {
     id: 5,
@@ -46,14 +91,26 @@ const allProjects: Project[] = [
     category: "Restoration",
     location: "Dalat, Vietnam",
     year: "2021",
+    slug: "maison-de-pierre",
     image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop",
-    description: "Restoring a French colonial villa with respectful modern interventions. The dialogue between old and new is articulated through steel and glass additions."
+    gallery: [
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1600&auto=format&fit=crop"
+    ],
+    client: "Heritage Trust",
+    services: ["Restoration", "Architecture"],
+    description: "Restoring a French colonial villa with respectful modern interventions. The dialogue between old and new is articulated through steel and glass additions.",
+    descriptionPart2: "The history of the building was not erased but highlighted. We cleaned the original stone but left the scars of time, juxtaposing them with the precision of modern steel and glass.",
+    challenge: "Preserving the crumbling colonial facade while making the home livable for a modern family.",
+    solution: "A steel and glass box was inserted into the rear of the structure, housing the kitchen and dining areas, leaving the original stone structure untouched."
   },
 ];
 
 const Portfolio: React.FC = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const navigate = useNavigate();
+  const whatsappUrl = "https://wa.me/84938639805?text=" + encodeURIComponent("Hello MYCA Studio, I’m interested in discussing an interior design project. I would love to understand your process and explore how we can work together.");
 
   return (
     <motion.div
@@ -121,8 +178,9 @@ const Portfolio: React.FC = () => {
                  return (
                    <div className="flex flex-col md:flex-row h-full md:h-[80vh]">
                       <div className="w-full md:w-2/3 h-[50vh] md:h-full">
+                         {/* IMPORTANT: We use layoutId here to match the destination page's hero image */}
                          <motion.img 
-                           layoutId={`project-image-${project.id}`}
+                           layoutId={`project-image-main-${project.id}`}
                            src={project.image} 
                            className="w-full h-full object-cover" 
                          />
@@ -142,7 +200,15 @@ const Portfolio: React.FC = () => {
                             <p className="text-myca-text/70 leading-relaxed font-light mb-12">
                                 {project.description}
                             </p>
-                            <button className="text-xs uppercase tracking-widest border-b border-myca-text pb-1 hover:text-myca-accent hover:border-myca-accent transition-colors">
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if(project.slug) {
+                                        navigate(`/portfolio/${project.slug}`);
+                                    }
+                                }}
+                                className="text-xs uppercase tracking-widest border-b border-myca-text pb-1 hover:text-myca-accent hover:border-myca-accent transition-colors"
+                            >
                                 View Full Case Study
                             </button>
                          </motion.div>
@@ -157,14 +223,17 @@ const Portfolio: React.FC = () => {
 
       {/* Footer CTA */}
       <div className="py-32 text-center bg-white">
-        <h3 className="text-2xl font-editorial mb-4">Interested in our process?</h3>
-        <p className="text-myca-text/60 mb-8">Read about the ideas behind the designs.</p>
-        <button 
-          onClick={() => navigate('/blog')}
-          className="text-myca-accent hover:text-myca-text uppercase tracking-widest text-sm underline underline-offset-4 transition-colors"
+        <h3 className="text-3xl md:text-5xl font-editorial mb-4">Interested in working with MYCA?</h3>
+        <p className="text-myca-text/60 mb-8 max-w-lg mx-auto leading-relaxed">Let’s discuss your project and explore how thoughtful design can shape your space.</p>
+        <motion.a 
+          href={whatsappUrl}
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-block text-myca-text border border-myca-text hover:bg-myca-text hover:text-white px-8 py-4 uppercase tracking-widest text-sm transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
         >
-          Read the Journal
-        </button>
+          Start a Conversation
+        </motion.a>
       </div>
     </motion.div>
   );
@@ -180,7 +249,7 @@ const ProjectItem: React.FC<{ project: Project; index: number; onClick: () => vo
       viewport={{ once: true, margin: "-10%" }}
     >
       <motion.img 
-        layoutId={`project-image-${project.id}`}
+        layoutId={`project-image-main-${project.id}`}
         src={project.image} 
         alt={project.title}
         className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter brightness-[0.8] group-hover:brightness-100"

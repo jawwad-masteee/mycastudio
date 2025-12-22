@@ -5,7 +5,15 @@ export interface Project {
   location?: string;
   image: string;
   year: string;
-  description?: string;
+  description?: string; // Part 1
+  descriptionPart2?: string; // Part 2
+  // New fields for Case Study Page
+  slug?: string;
+  gallery?: string[]; // Images for Hero Slider
+  client?: string;
+  services?: string[];
+  challenge?: string;
+  solution?: string;
 }
 
 export interface BlogPost {
@@ -16,6 +24,8 @@ export interface BlogPost {
   category: string;
   image: string;
   slug: string;
+  author?: string;
+  content?: string[];
 }
 
 export interface TimelineEvent {

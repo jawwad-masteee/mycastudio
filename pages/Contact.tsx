@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import ContactForm from '../components/ContactForm';
 
 const Contact: React.FC = () => {
+  const whatsappUrl = "https://wa.me/84938639805?text=" + encodeURIComponent("Hello MYCA Studio, I’m interested in discussing an interior design project. I would love to understand your process and explore how we can work together.");
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -43,7 +45,7 @@ const Contact: React.FC = () => {
             </div>
             <div>
               <h4 className="text-xs uppercase tracking-widest text-myca-text/40 mb-2">WhatsApp / Phone</h4>
-              <a href="tel:+84938639805" className="text-xl font-editorial hover:text-myca-accent transition-colors">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-xl font-editorial hover:text-myca-accent transition-colors">
                 +84 938 639 805
               </a>
             </div>

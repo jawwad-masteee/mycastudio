@@ -1,9 +1,12 @@
 import React from 'react';
-import Hero from '../components/Hero';
-import Projects from '../components/Projects';
-import Philosophy from '../components/Philosophy';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import Hero from '../components/Hero';
+import Projects from '../components/Projects';
+import ClientArchetypes from '../components/ClientArchetypes';
+import ProcessJourney from '../components/ProcessJourney';
+import Testimonials from '../components/Testimonials';
+import FinalCTA from '../components/FinalCTA';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -16,9 +19,10 @@ const Home: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="bg-myca-bg"
     >
+      {/* 1. HERO (EXISTING) */}
       <Hero />
 
-      {/* About Preview */}
+      {/* 2. WHO WE ARE (EXISTING) */}
       <section className="py-32 px-6 md:px-24 max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
         <motion.div 
           className="flex-1"
@@ -59,30 +63,20 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <Projects />
-      
-      <Philosophy />
+      {/* 3. WHO WE DESIGN FOR (NEW) */}
+      <ClientArchetypes />
 
-      {/* CTA Section */}
-      <section className="py-40 px-6 bg-myca-ui/10 text-center flex flex-col items-center justify-center">
-        <motion.h2 
-          className="text-5xl md:text-8xl font-editorial mb-12 text-myca-text"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Let’s design spaces <br /> that last beyond trends.
-        </motion.h2>
-        
-        <motion.button 
-          onClick={() => navigate('/contact')}
-          className="px-12 py-5 border border-myca-text text-myca-text uppercase tracking-widest text-sm hover:bg-myca-accent hover:border-myca-accent hover:text-white transition-all duration-300 transform hover:scale-105"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Start a Conversation
-        </motion.button>
-      </section>
+      {/* 4. 4-STEP PROCESS (NEW) */}
+      <ProcessJourney />
+
+      {/* 5. SELECTED WORKS (EXISTING) */}
+      <Projects />
+
+      {/* 6. TESTIMONIALS (NEW) */}
+      <Testimonials />
+
+      {/* 7. FINAL EMOTIONAL CTA (UPDATED) */}
+      <FinalCTA />
 
     </motion.div>
   );

@@ -7,8 +7,7 @@ const navItems: NavItem[] = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Portfolio', path: '/portfolio' },
-  { label: 'Journal', path: '/blog' },
-  { label: 'Contact', path: '/contact' },
+  { label: 'Blogs', path: '/blog' },
 ];
 
 const Navigation: React.FC = () => {
@@ -39,13 +38,13 @@ const Navigation: React.FC = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        {/* Logo */}
-        <NavLink to="/" className="z-50 group">
-          <span className="text-2xl font-sans tracking-widest font-bold">MYCA</span>
+        {/* Left: Logo */}
+        <NavLink to="/" className="z-50 group flex-shrink-0">
+          <span className="text-2xl font-sans tracking-widest font-bold text-myca-text">MYCA</span>
         </NavLink>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-10 items-center">
+        {/* Center: Navigation Links (Desktop) */}
+        <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 gap-8 lg:gap-12 items-center">
           {navItems.map((item) => (
             <div key={item.label} className="relative group">
               <NavLink
@@ -58,15 +57,24 @@ const Navigation: React.FC = () => {
               >
                 {item.label}
               </NavLink>
-              {item.isComingSoon && (
-                <span className="absolute -top-3 -right-6 text-[8px] text-myca-accent uppercase tracking-wider">
-                  Soon
-                </span>
-              )}
               {/* Hover Underline */}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-myca-accent transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-myca-text transition-all duration-300 group-hover:w-full" />
             </div>
           ))}
+        </div>
+
+        {/* Right: Contact Button (Desktop) */}
+        <div className="hidden md:flex flex-shrink-0">
+            <NavLink to="/contact">
+               <motion.div 
+                 className="group relative px-8 py-3 border border-black text-black overflow-hidden hover:text-white transition-colors duration-500"
+                 whileHover={{ scale: 1.05 }}
+                 transition={{ duration: 0.3 }}
+               >
+                   <div className="absolute inset-0 bg-black translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                   <span className="relative z-10 text-xs uppercase tracking-[0.2em]">Contact Us</span>
+               </motion.div>
+            </NavLink>
         </div>
 
         {/* Mobile Hamburger */}
@@ -112,10 +120,22 @@ const Navigation: React.FC = () => {
                     className="text-4xl font-editorial text-myca-text hover:text-myca-accent transition-colors block"
                   >
                     {item.label}
-                    {item.isComingSoon && <span className="text-xs ml-4 text-myca-ui align-top font-sans">SOON</span>}
                   </NavLink>
                 </motion.div>
               ))}
+              {/* Mobile Contact Link */}
+              <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + navItems.length * 0.1 }}
+              >
+                  <NavLink
+                    to="/contact"
+                    className="text-4xl font-editorial text-myca-text hover:text-myca-accent transition-colors block"
+                  >
+                    Contact
+                  </NavLink>
+              </motion.div>
             </div>
             
             <motion.div 

@@ -3,6 +3,29 @@ import { motion } from 'framer-motion';
 
 const ContactForm: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, message } = formData;
+    
+    const whatsappMessage = `Hello MYCA Studio,\n\nMy name is: ${name}\nEmail address: ${email}\n\nProject details:\n${message}\n\nLooking forward to your response.`;
+    
+    const url = `https://wa.me/84938639805?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    window.open(url, '_blank');
+  };
 
   const fields = [
     { name: 'name', label: 'Your Name', type: 'text' },
@@ -11,13 +34,13 @@ const ContactForm: React.FC = () => {
   ];
 
   return (
-    <form className="w-full max-w-2xl flex flex-col gap-12" onSubmit={(e) => e.preventDefault()}>
+    <form className="w-full max-w-2xl flex flex-col gap-12" onSubmit={handleSubmit}>
       {fields.map((field) => (
         <div key={field.name} className="relative">
           <label 
             htmlFor={field.name}
             className={`absolute left-0 transition-all duration-300 pointer-events-none font-sans text-sm tracking-wide ${
-              focusedField === field.name 
+              focusedField === field.name || formData[field.name as keyof typeof formData]
                 ? '-top-6 text-myca-accent text-xs' 
                 : 'top-2 text-myca-text/40'
             }`}
@@ -29,23 +52,27 @@ const ContactForm: React.FC = () => {
              <textarea
                id={field.name}
                rows={4}
+               value={formData[field.name as keyof typeof formData]}
+               onChange={handleChange}
                onFocus={() => setFocusedField(field.name)}
-               onBlur={(e) => !e.target.value && setFocusedField(null)}
+               onBlur={() => setFocusedField(null)}
                className="w-full bg-transparent border-b border-myca-ui py-2 text-myca-text focus:outline-none focus:border-myca-accent transition-colors duration-300 resize-none font-light"
              />
           ) : (
             <input
               type={field.type}
               id={field.name}
+              value={formData[field.name as keyof typeof formData]}
+              onChange={handleChange}
               onFocus={() => setFocusedField(field.name)}
-              onBlur={(e) => !e.target.value && setFocusedField(null)}
+              onBlur={() => setFocusedField(null)}
               className="w-full bg-transparent border-b border-myca-ui py-2 text-myca-text focus:outline-none focus:border-myca-accent transition-colors duration-300 font-light"
             />
           )}
         </div>
       ))}
 
-      <button className="group mt-8 flex items-center gap-4 text-myca-text w-fit">
+      <button type="submit" className="group mt-8 flex items-center gap-4 text-myca-text w-fit">
         <span className="uppercase tracking-[0.2em] text-sm group-hover:text-myca-accent transition-colors duration-300">
           Send Message
         </span>

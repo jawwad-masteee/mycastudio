@@ -8,6 +8,10 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import ProjectCaseStudy from './pages/ProjectCaseStudy';
+import ScrollToTopButton from './components/ScrollToTopButton';
+import WhatsAppButton from './components/WhatsAppButton';
 import { AnimatePresence } from 'framer-motion';
 
 // Wrapper to handle AnimatePresence location
@@ -20,7 +24,9 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/portfolio/:slug" element={<ProjectCaseStudy />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
       </Routes>
     </AnimatePresence>
   );
@@ -45,12 +51,14 @@ const App: React.FC = () => {
       ) : (
         <HashRouter>
           <ScrollToTop />
-          <div className="bg-myca-bg min-h-screen text-myca-text font-sans selection:bg-myca-accent selection:text-white">
+          <div className="bg-myca-bg min-h-screen text-myca-text font-sans selection:bg-myca-accent selection:text-white relative">
             <Navigation />
             <main>
               <AnimatedRoutes />
             </main>
             <Footer />
+            <ScrollToTopButton />
+            <WhatsAppButton />
           </div>
         </HashRouter>
       )}
